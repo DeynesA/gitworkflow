@@ -1,7 +1,8 @@
 name: Zweite Workflow
 on:
     workflow_dispatch:
-       
+env:
+    ZIP_FILE: Introduction.7z       
 jobs:
     Explore-Github-Actions:
         runs-on: ubuntu-latest
@@ -12,14 +13,17 @@ jobs:
             sudo apt-get update 
             sudo apt-get upgrade -y
             sudo apt-get install -y p7zip-full
+
         - name: Clonen_repository
           run: |
             echo "Clone Introduction_respository"
             git clone https://github.com/DeynesA/Introduction.git
+
         - name: Komprimier_Introduction_respository_in_7zip
           run: |
             echo "Komprimiere Introduction_respository in eine 7zip"
-            7z a introduction.7z introduction/
+            7z a -t7z ${{env.ZIP_FILE}} ./Introduction/
+
         - name: Text_ausgabe_für_den_Abgeschlossenen_Vorgang
           run: |
             echo "Vorgang abgeschlossen"
